@@ -53,6 +53,7 @@ void setup() {
   digitalWrite(s1, LOW);
   digitalWrite(s0, HIGH);
 
+  //ustawienie serw w pozycji neutralnej
   kierunek.write(90);
   klapa.write(20);
   hak.write(20);
@@ -76,14 +77,14 @@ void loop() {
   hakuj();
 
   long R_sum = 0, G_sum = 0, B_sum = 0;
-
+  //pobranie 100 pomiarów każdego koloru
   for (int i = 0; i < 100; i++) {
     R_sum += readColor('R');
     G_sum += readColor('G');
     B_sum += readColor('B');
     delay(10); // krótki odstęp między pomiarami
   }
-
+  //uśrednienie pomiarów
   int R = R_sum / 100;
   int B = B_sum / 100;
   int G = G_sum / 100;
@@ -99,6 +100,7 @@ void loop() {
   wyczyscLED();
   delay(10);
 
+  //zapalenie odpowieniego led-a i ustawienie kierunku w zależności od wykrytego koloru
   if (R < G && R < B) {
     kierunek.write(50);
     delay(10);
@@ -146,14 +148,14 @@ int readColor(char color) {
       return 0;
   }
 }
-
+//kalibracja
 void calibrateWhite() {
   Serial.println("Kalibracja - ustaw bialy kolor");
   delay(500);
 
   long R_sum = 0, G_sum = 0, B_sum = 0;
 
-  for (int i = 0; i < 50; i++) {
+  for (int i = 0; i < 50; i++) {    //pobranie 50 pomiarów białego koloru
     digitalWrite(s2, LOW);
     digitalWrite(s3, LOW);
     R_sum += GetData();
@@ -168,11 +170,11 @@ void calibrateWhite() {
 
     delay(10);
   }
-
+  //obliczenie średniej z pomiarów
   float R_white = R_sum / 50.0;
   float G_white = G_sum / 50.0;
   float B_white = B_sum / 50.0;
-
+  //wyznaczenie mnożników
   redMult   = G_white / R_white * 1.15;
   greenMult = 1.0;
   blueMult  = G_white / B_white * 0.93;
@@ -183,6 +185,7 @@ void calibrateWhite() {
   Serial.print("blueMult = "); Serial.println(blueMult);
 }
 
+//otwarcie i zamknięcie haka
 void hakuj() {
   hak.write(90);
   delay(1100);
@@ -190,6 +193,7 @@ void hakuj() {
   delay(500);
 }
 
+//otwarcie i zamknięcie klapy
 void klapuj() {
   delay(1000);
   klapa.write(90);
