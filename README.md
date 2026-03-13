@@ -14,6 +14,12 @@ Projekt automatycznego sortownika, który rozpoznaje kolory kulek (Czerwony, Zie
 * **Pauza:** Fizyczny przycisk wstrzymujący pracę (z efektem wizualnym - wszystkie diody migają).
 * **Autokalibracja:** Dynamiczne dostosowanie do oświetlenia przy starcie.
 
+* ![Schemat podłączenia TCS3200 do Arduino](Diagram.png)
+
+## Gotowy Projekt
+
+* ![Zdjęcie skończonego sortownika](Sortownik.jpg)
+
 ## Autorzy 
 * **Kamil Michalak** (160127)
 * **Mikołaj Guć** (160242)
